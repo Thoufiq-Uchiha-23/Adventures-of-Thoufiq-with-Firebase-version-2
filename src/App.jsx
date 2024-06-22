@@ -10,6 +10,11 @@ function App() {
 
   console.log("Firebase", firebase);
 
+  const handleSignUp = () => {
+    firebase.signupUserWithEmailAndPassword(email, password)
+      .then(value => console.log("User Signed Up", value))
+      .catch(error => console.log("Error: ", error))
+  }
   return (
     <div>
       <h1>Firebase</h1>
@@ -21,7 +26,7 @@ function App() {
       onChange={(e) => setPassword(e.target.value)}
       value={password} 
       type="password" placeholder='Enter Password' />
-      <button onClick={() => firebase.signupUserWithEmailAndPassword}>Signup</button>
+      <button onClick={handleSignUp}>Signup</button>
     </div>
   )
 }
