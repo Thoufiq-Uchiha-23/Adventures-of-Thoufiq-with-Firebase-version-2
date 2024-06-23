@@ -1,38 +1,39 @@
 import { createContext, useContext } from "react";
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, set, ref } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCBqBZM7BEwhOxYeiVGF2O50d__kUiGqMY",
-    authDomain: "app-e0f8e.firebaseapp.com",
-    databaseURL: "https://app-e0f8e-default-rtdb.firebaseio.com",
-    projectId: "app-e0f8e",
-    storageBucket: "app-e0f8e.appspot.com",
-    messagingSenderId: "639593789333",
-    appId: "1:639593789333:web:69cb460967a54ca4fae89c",
-    databaseURL: "https://app-e0f8e-default-rtdb.firebaseio.com/"
+  apiKey: "AIzaSyCBqBZM7BEwhOxYeiVGF2O50d__kUiGqMY",
+  authDomain: "app-e0f8e.firebaseapp.com",
+  databaseURL: "https://app-e0f8e-default-rtdb.firebaseio.com",
+  projectId: "app-e0f8e",
+  storageBucket: "app-e0f8e.appspot.com",
+  messagingSenderId: "639593789333",
+  appId: "1:639593789333:web:69cb460967a54ca4fae89c",
+  databaseURL: "https://app-e0f8e-default-rtdb.firebaseio.com/",
 };
 
-const firebaseApp = initializeApp(firebaseConfig)
-const firebaseAuth = getAuth(firebaseApp)
-const database = getDatabase(firebaseApp)
+const firebaseApp = initializeApp(firebaseConfig);
+const firebaseAuth = getAuth(firebaseApp);
+const database = getDatabase(firebaseApp);
 
-const FirebaseContext = createContext(null)
+const FirebaseContext = createContext(null);
 
 export const useFirebase = () => useContext(FirebaseContext);
 
-
 export const FirebaseProvider = (props) => {
-    const signupUserWithEmailAndPassword = (email, password) => {
-        return createUserWithEmailAndPassword(firebaseAuth, email, password)
-    }
+  const signupUserWithEmailAndPassword = (email, password) => {
+    return createUserWithEmailAndPassword(firebaseAuth, email, password);
+  };
 
-    const putData = (key, data) => set(ref(database, key), data) 
+  const putData = (key, data) => set(ref(database, key), data);
 
-    return (
-        <FirebaseContext.Provider value={{signupUserWithEmailAndPassword, putData}}>
-            {props.children}
-        </FirebaseContext.Provider>
-    )
-}
+  return (
+    <FirebaseContext.Provider
+      value={{ signupUserWithEmailAndPassword, putData }}
+    >
+      {props.children}
+    </FirebaseContext.Provider>
+  );
+};
